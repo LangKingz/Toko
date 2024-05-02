@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,6 +19,13 @@ Color SubtitleTextColor = const Color(0xff504F5E);
 Color IconColor = const Color(0xff808191);
 Color TransparentColor = Colors.transparent;
 Color TitlePopular = const Color(0xff2E2E2E);
+
+Color OnlineColor = const Color(0xff6CE3B2);
+Color OfflineColor = const Color(0xff393D4C);
+
+Color BackgroundColor5 = const Color(0xff2B2844);
+
+Color ChatBubbleColor = const Color(0xff2B2844);
 
 TextStyle titleTextStyle = GoogleFonts.poppins(
   color: TitlePopular,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toko/pages/detail_chat.dart';
 import 'package:toko/pages/home/main_pages.dart';
 import 'package:toko/pages/login_pages.dart';
 import 'package:toko/pages/register_pages.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Splashscreen(),
         '/login': (context) => const Login(),
         '/register': (context) => const Register(),
-        '/home':(context) => const Mainpages()
+        '/home':(context) => const Mainpages(),
+        '/detail-chat':(context) => const DetailChatpages(),
       },
     );
   }

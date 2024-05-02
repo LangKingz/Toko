@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:toko/product/Arrivals.dart';
-import 'package:toko/product/Product.dart';
+import 'package:toko/Widgets/Arrivals.dart';
+import 'package:toko/Widgets/Product.dart';
 import 'package:toko/theme/theme.dart';
 // import 'package:toko/models/category.dart';
 

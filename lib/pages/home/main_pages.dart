@@ -1,10 +1,11 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:toko/pages/home/Fav_pages.dart';
 import 'package:toko/pages/home/chat_pages.dart';
 import 'package:toko/pages/home/home_pages.dart';
 import 'package:toko/pages/home/profil_pages.dart';
-import 'package:toko/pages/home/wish_pages.dart';
+// import 'package:toko/pages/wish_pages.dart';
 import 'package:toko/theme/theme.dart';
 
 class Mainpages extends StatefulWidget {
@@ -95,7 +96,7 @@ class _MainpagesState extends State<Mainpages> {
       case 1:
         return const Chatpages();
       case 2:
-        return const Wishpages();
+        return const FavPages();
       case 3:
         return const Profilpages();
       default:

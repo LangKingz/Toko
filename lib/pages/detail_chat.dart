@@ -14,6 +14,7 @@ class DetailChatpages extends StatelessWidget {
           ChatBubbles(
             isSender: true,
             text: 'Hi, Apakah Masih ada?',
+            hasProduct: true,
           ),
           ChatBubbles(
             isSender: false,

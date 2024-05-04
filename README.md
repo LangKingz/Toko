@@ -52,12 +52,7 @@ This is an E-Commerce mobile application developed using Flutter framework. It p
    flutter run
    ```
 
-### Screenshots
 
-![Screenshot 1](/screenshots/home_screen.png)
-![Screenshot 2](/screenshots/product_details_screen.png)
-![Screenshot 3](/screenshots/cart_screen.png)
-![Screenshot 4](/screenshots/checkout_screen.png)
 
 ### Contributing
 

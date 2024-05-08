@@ -21,7 +21,7 @@ class FavPages extends StatelessWidget {
     );
   }
 
-  Expanded Emptycard() {
+  Expanded emptycard() {
     return Expanded(
         child: Center(
       child: Column(

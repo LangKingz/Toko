@@ -22,7 +22,8 @@ class _MainpagesState extends State<Mainpages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MainBackgroundColor,
+      backgroundColor:
+          CurrentIndex == 0 ? MainBackgroundColor : BackgroundColor3,
       floatingActionButton: floatbutton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: ClipRRect(

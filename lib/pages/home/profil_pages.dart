@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:toko/theme/theme.dart';
 
 class Profilpages extends StatelessWidget {
@@ -29,11 +30,11 @@ class Profilpages extends StatelessWidget {
       backgroundColor: BackgroundColor3,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(125), child: header(context)),
-      body: _content(menuItem),
+      body: _content(menuItem, context),
     );
   }
 
-  Expanded _content(Widget menuItem(String text)) {
+  Expanded _content(Widget menuItem(String text), context) {
     return Expanded(
         child: Container(
       color: BackgroundColor3,
@@ -47,7 +48,12 @@ class Profilpages extends StatelessWidget {
             style:
                 primaryTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
           ),
-          menuItem('Edit Profile'),
+          GestureDetector(
+            child: menuItem('Edit Profile'),
+            onTap: () {
+              Navigator.pushNamed(context, '/edit-profile');
+            },
+          ),
           menuItem('Your Orders'),
           menuItem('Help'),
           SizedBox(

@@ -1,28 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:toko/providers/auth_providers.dart';
 import 'package:toko/theme/theme.dart';
+import 'package:http/http.dart' as http;
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController passwordController = TextEditingController(text: '');
+
+  bool isLoading = false;
+  @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleLogin() async {
+      setState(() {
+        isLoading = true;
+      });
+      if (await authProvider.login(
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Gagal Login'),
+          ),
+        );
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+
     return Scaffold(
       backgroundColor: MainBackgroundColor,
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(padding: EdgeInsets.only(top: 30)),
-              _header(),
-              _emailInput(),
-              _password(),
-              _button(context),
-              const Spacer(),
-              _footer(context)
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(padding: EdgeInsets.only(top: 30)),
+                _header(),
+                _emailInput(),
+                _password(),
+                isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _button(context, handleLogin),
+                const Spacer(),
+                _footer(context)
+              ],
+            ),
           ),
         ),
       ),
@@ -57,15 +99,13 @@ class Login extends StatelessWidget {
     );
   }
 
-  Container _button(context) {
+  Container _button(context, Function handleLogin) {
     return Container(
       margin: const EdgeInsets.only(top: 30),
       width: double.infinity,
       height: 50,
       child: TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/home');
-        },
+        onPressed: () => handleLogin(),
         style: TextButton.styleFrom(
           backgroundColor: PrimaryColor,
           shape: RoundedRectangleBorder(
@@ -106,6 +146,7 @@ class Login extends StatelessWidget {
             ),
             child: Center(
               child: TextFormField(
+                controller: passwordController,
                 obscureText: true,
                 style: primaryTextStyle,
                 decoration: InputDecoration(
@@ -151,6 +192,7 @@ class Login extends StatelessWidget {
             ),
             child: Center(
               child: TextFormField(
+                controller: emailController,
                 style: primaryTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,

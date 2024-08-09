@@ -1,31 +1,72 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:toko/providers/auth_providers.dart';
 import 'package:toko/theme/theme.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
 
   @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController(text: '');
+
+  TextEditingController username = TextEditingController(text: '');
+
+  TextEditingController emailController = TextEditingController(text: '');
+
+  TextEditingController passwordController = TextEditingController(text: '');
+
+  @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleRegis() async {
+      if (await authProvider.register(
+        name: nameController.text,
+        username: username.text,
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Gagal Register'),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MainBackgroundColor,
       body: SafeArea(
           child: Container(
         margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(padding: EdgeInsets.only(top: 30)),
-            _header(),
-            _fullname(),
-            _username(),
-            _email(),
-            _password(),
-            _button(context),
-            const Spacer(),
-            _footer(context)
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(padding: EdgeInsets.only(top: 30)),
+              _header(),
+              _fullname(),
+              _username(),
+              _email(),
+              _password(),
+              _button(context, handleRegis),
+              const Spacer(),
+              _footer(context)
+            ],
+          ),
         ),
       )),
     );
@@ -56,15 +97,13 @@ class Register extends StatelessWidget {
     );
   }
 
-  Container _button(context) {
+  Container _button(context, Function handleRegis) {
     return Container(
       margin: const EdgeInsets.only(top: 30),
       width: double.infinity,
       height: 50,
       child: TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/home');
-        },
+        onPressed: () => handleRegis(),
         style: TextButton.styleFrom(
           backgroundColor: PrimaryColor,
           shape: RoundedRectangleBorder(
@@ -105,6 +144,7 @@ class Register extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child: TextFormField(
+                controller: passwordController,
                 obscureText: true,
                 style: primaryTextStyle,
                 decoration: InputDecoration(
@@ -153,6 +193,7 @@ class Register extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child: TextFormField(
+                controller: emailController,
                 style: primaryTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -200,6 +241,7 @@ class Register extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child: TextFormField(
+                controller: username,
                 style: primaryTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -247,6 +289,7 @@ class Register extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child: TextFormField(
+                controller: nameController,
                 style: primaryTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,

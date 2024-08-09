@@ -19,6 +19,7 @@ Color SubtitleTextColor = const Color(0xff504F5E);
 Color IconColor = const Color(0xff808191);
 Color TransparentColor = Colors.transparent;
 Color TitlePopular = const Color(0xff2E2E2E);
+Color Productdetail = const Color(0xffecedef);
 
 Color OnlineColor = const Color(0xff6CE3B2);
 Color OfflineColor = const Color(0xff393D4C);
